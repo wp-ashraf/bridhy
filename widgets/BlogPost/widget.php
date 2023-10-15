@@ -2981,7 +2981,7 @@ class FBTH_Blog extends \Elementor\Widget_Base
             ));
         } ?>
         <div class="fbth-addons-blog-wraper">
-            <div <?php echo $this->get_render_attribute_string('blog_version'); ?>>
+            <div <?php echo esc_attr($this->get_render_attribute_string('blog_version')); ?>>
                 <?php
                 $i = 0;
                 while ($the_query->have_posts()) : $the_query->the_post(); ?>

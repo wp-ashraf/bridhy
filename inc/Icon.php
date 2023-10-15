@@ -1,29 +1,36 @@
 <?php
 namespace FBTH;
 
-class Icon {
-    function __construct() {
-        add_filter( 'elementor/icons_manager/additional_tabs', [$this, 'add_fd_icons'] );
+if (!defined('ABSPATH'))
+    exit;
+class Icon
+{
+    function __construct()
+    {
+        add_filter('elementor/icons_manager/additional_tabs', [$this, 'add_fd_icons']);
     }
 
-    function add_fd_icons( $tabs = [] ) {
+    function add_fd_icons($tabs = [])
+    {
 
         $tabs['fd-icon'] = [
-            'name'          => 'fd-icon',
-            'label'         => __( 'Bridhy Icons', 'fbth' ),
-            'url'           => FBTH_ASSETS_PUBLIC . '/css/fd-icon.css',
-            'enqueue'       => [FBTH_ASSETS_PUBLIC . '/css/fd-icon.css'],
-            'prefix'        => 'fd-',
+            'name' => 'fd-icon',
+            'label' => __('Bridhy Icons', 'fbth'),
+            'url' => FBTH_ASSETS_PUBLIC . '/css/fd-icon.css',
+            'enqueue' => [FBTH_ASSETS_PUBLIC . '/css/fd-icon.css'],
+            'prefix' => 'fd-',
             'displayPrefix' => '',
-            'labelIcon'     => 'fas fa-folder-open',
-            'ver'           => '1.0.0',
-            'icons'         => $this->icons(), //$icons from icons.php
+            'labelIcon' => 'fas fa-folder-open',
+            'ver' => '1.0.0',
+            'icons' => $this->icons(),
+            //$icons from icons.php
         ];
 
         return $tabs;
     }
 
-    function icons() {
+    function icons()
+    {
         $icon = [
 
             'cloud-download-95',

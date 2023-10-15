@@ -7,9 +7,9 @@ if (!defined('ABSPATH')) {
 final class FBTH_Extension
 {
 
-    const VERSION                   = '1.0.0';
+    const VERSION = '1.0.0';
     const MINIMUM_ELEMENTOR_VERSION = '2.6.0';
-    const MINIMUM_PHP_VERSION       = '5.6';
+    const MINIMUM_PHP_VERSION = '5.6';
 
     private static $_instance = null;
 
@@ -35,8 +35,8 @@ final class FBTH_Extension
 
     public function init()
     {
-		if( true != get_option('elementor_unfiltered_files_upload')){
-            update_option( 'elementor_unfiltered_files_upload', 1 );
+        if (true != get_option('elementor_unfiltered_files_upload')) {
+            update_option('elementor_unfiltered_files_upload', 1);
         }
         // Check if Elementor installed and activated
         if (!did_action('elementor/loaded')) {
@@ -142,7 +142,7 @@ final class FBTH_Extension
 
         // Add Bridhy MAP API
         $fbth_map = get_theme_mods('fbth_map_api_settings');
-        $mapApi   = isset($fbth_map['fbth_map_api_settings']) ? $fbth_map['fbth_map_api_settings'] : 1;
+        $mapApi = isset($fbth_map['fbth_map_api_settings']) ? $fbth_map['fbth_map_api_settings'] : 1;
         if ('1' !== $mapApi) {
             $api = sprintf('https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $mapApi, 'en');
             wp_register_script('fbth-maps-api-input', $api, array(), '', false);
@@ -281,7 +281,7 @@ final class FBTH_Extension
             self::MINIMUM_PHP_VERSION
         );
 
-        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message));
     }
 
     public function admin_notice_missing_main_plugin()
@@ -332,7 +332,7 @@ final class FBTH_Extension
         require_once FBTH_WIDGET_EXTENSIONS . 'floting-effect.php';
 
         //Include Widget files
-        
+
         require_once FBTH_WIDGET_DIR . 'BlogPost/widget.php';
         require_once FBTH_WIDGET_DIR . 'Advance-Tab/widget.php';
         require_once FBTH_WIDGET_DIR . 'Accordion/widget.php';
@@ -358,14 +358,11 @@ add_filter('elementor/fonts/additional_fonts', function ($additional_fonts) {
 });
 
 
-function fbth_add_file_types_to_uploads($file_types){
-$new_filetypes = array();
-$new_filetypes['svg'] = 'image/svg+xml';
-$file_types = array_merge($file_types, $new_filetypes );
-return $file_types;
+function fbth_add_file_types_to_uploads($file_types)
+{
+    $new_filetypes = array();
+    $new_filetypes['svg'] = 'image/svg+xml';
+    $file_types = array_merge($file_types, $new_filetypes);
+    return $file_types;
 }
 add_action('upload_mimes', 'fbth_add_file_types_to_uploads');
-
-
-
-
