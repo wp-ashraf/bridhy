@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Bridhy
+Plugin Name: Bridhy CF7 - Ultimate Contact Form 7 Addons
 Plugin URI: https://wpgrids.com
-Description: The Bridhy is an Elementor helping plugin that will make your designing work easier.
+Description: The Bridhy is an Contact Form 7 helping plugin that will make your designing work easier.
 Our specialities are custom CSS, Nested section, Creative Buttons.
 Version: 1.0.0
 Author: wpgrids
