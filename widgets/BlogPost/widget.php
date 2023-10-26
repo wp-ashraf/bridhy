@@ -3057,14 +3057,14 @@ class FBTH_Blog extends \Elementor\Widget_Base
         if ($settings['enable_pagination']) :
             $big = 999999999; // need an unlikely integer
             echo '<div class="row"><div class="col-12"><div class="fbth-addons-pagination">';
-            echo paginate_links(array(
+            wp_kses_post(  paginate_links(array(
                 'base' => str_replace($big, '%#%', get_pagenum_link($big)),
                 'format' => '?paged=%#%',
                 'current' => max(1, get_query_var('paged')),
                 'prev_text' => '<span class="fbth-addons-pagination-icon"><i class="fas fa-angle-left"> </i></span>',
                 'next_text' => '<span class="fbth-addons-pagination-icon"><i class="fas fa-angle-right"> </i></span>',
                 'total' => $the_query->max_num_pages,
-            ));
+            )));
             echo '</div></div></div>';
         endif;
         wp_reset_postdata();

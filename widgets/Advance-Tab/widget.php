@@ -761,7 +761,8 @@ class FBTH_Advanced_Tabs extends \Elementor\Widget_Base
                         if (!empty($value['selected_template'])) {
 
                             if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
-                                echo '<div class="fbth-elm-edit-wrap"><a href="' . \Elementor\Plugin::$instance->documents->get($value['selected_template'])->get_edit_url() . '" class="fbth-elm-edit">' . esc_html__('Edit Template', 'fbth') . '</a></div>';
+
+                                wp_kses_post('<div class="fbth-elm-edit-wrap"><a href="' . \Elementor\Plugin::$instance->documents->get($value['selected_template'])->get_edit_url() . '" class="fbth-elm-edit">' . esc_html__('Edit Template', 'fbth') . '</a></div>');
                             }
                             ?>
                             <?php

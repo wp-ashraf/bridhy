@@ -16,14 +16,14 @@ if (!defined('ABSPATH'))
     <div class="post-content">
         <?php if ($top_meta): ?>
             <div class="post-top-meta">
-                <?php printf($top_meta); ?>
+                <?php wp_kses_post($top_meta); ?>
             </div>
         <?php endif; ?>
         <?php printf('<a href="%s" ><h3 class="post-title">%s</h3></a>', esc_url(get_the_permalink()), esc_html($title));
         echo 'yes' == $settings['show_excerpt'] ? sprintf('<p> %s </p>', esc_html($excerpt)) : ''; ?>
         <?php if ($bottom_meta): ?>
             <div class="post-meta-bottom">
-                echo esc_html($bottom_meta); ?>
+            <?php echo esc_html($bottom_meta); ?>
             </div>
         <?php endif; ?>
         <?php if ('yes' == $settings['show_readmore']): ?>

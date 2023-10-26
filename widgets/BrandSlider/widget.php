@@ -1896,7 +1896,7 @@ Arrow Position
 
                         <?php if ($brand['image']) : ?>
                             <div class="fbth-brand-figure">
-                                <?php echo '<img src="' . $brand['image']['url'] . '">'; ?>
+                                <?php echo '<img src="' . esc_url($brand['image']['url']) . '">'; ?>
 
                             </div>
                         <?php endif; ?>

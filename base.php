@@ -141,19 +141,7 @@ final class FBTH_Extension
         );
 
         // Add Bridhy MAP API
-        $fbth_map = get_theme_mods('fbth_map_api_settings');
-        $mapApi = isset($fbth_map['fbth_map_api_settings']) ? $fbth_map['fbth_map_api_settings'] : 1;
-        if ('1' !== $mapApi) {
-            $api = sprintf('https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $mapApi, 'en');
-            wp_register_script('fbth-maps-api-input', $api, array(), '', false);
-        }
-        wp_enqueue_script(
-            'fbth-maps-api-js',
-            FBTH_ASSETS_PUBLIC . '/js/fbth-maps.js',
-            ['jquery'],
-            FBTH_VERSION,
-            true
-        );
+
         wp_enqueue_script(
             'typed',
             FBTH_ASSETS_PUBLIC . '/js/typed.min.js',
@@ -298,7 +286,7 @@ final class FBTH_Extension
             '<strong>' . esc_html__('Elementor', 'fbth') . '</strong>'
         );
 
-        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message));
     }
 
     public function admin_notice_minimum_elementor_version()
@@ -316,7 +304,7 @@ final class FBTH_Extension
             self::MINIMUM_ELEMENTOR_VERSION
         );
 
-        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message);
+        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message)));
     }
 
     public function init_widgets($widgets_manager)

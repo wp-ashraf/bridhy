@@ -25,7 +25,7 @@ if (!defined('ABSPATH'))
     <div class="post-content">
         <?php if ($top_meta): ?>
             <div class="post-top-meta">
-                <?php printf($top_meta); ?>
+                <?php wp_kses_post($top_meta); ?>
             </div>
         <?php endif; ?>
         <?php printf('<a href="%s" ><h3 class="post-title">%s</h3></a>', esc_url(get_the_permalink()), esc_html($title));
@@ -53,7 +53,7 @@ if (!defined('ABSPATH'))
             </div>
         <?php endif; ?>
         <div class="post-top-meta">
-            echo esc_html($bottom_meta); ?>
+           <?php echo esc_html($bottom_meta); ?>
         </div>
     </div>
 </div>
