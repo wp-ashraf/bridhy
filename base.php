@@ -304,7 +304,7 @@ final class FBTH_Extension
             self::MINIMUM_ELEMENTOR_VERSION
         );
 
-        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message)));
+        printf('<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', wp_kses_post($message));
     }
 
     public function init_widgets($widgets_manager)
