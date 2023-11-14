@@ -1,6 +1,6 @@
 === Bridhy ===
 Contributors: wpgrids, ashrafuddin765
-Tags: elementor, design, CSS, buttons
+Tags: contact form, contact form 7, cf7, addon, extention, form builder
 Requires at least: 4.7
 Tested up to: 6.3.1
 Stable tag: 1.0.0
@@ -8,12 +8,11 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
-The Bridhy plugin is a powerful tool designed to enhance your Elementor experience and streamline your design workflow. With Bridhy, you can effortlessly create stunning websites by utilizing our advanced features and functionalities.
+The Bridhy plugin is a powerful tool designed to enhance your Contact Form 7 experience with the help of Elementor. With Bridhy, you can effortlessly create stunning forms by utilizing our advanced features and functionalities.
 
 == Key Features ==
-- Custom CSS: Tailor the appearance of your website to your exact specifications with our intuitive custom CSS editor.
-- Nested Sections: Create complex layouts with ease by nesting sections within sections, allowing for more intricate and dynamic designs.
-- Creative Buttons: Unlock a wide range of creative button styles and effects to make your website stand out from the crowd.
+- Custom Form Designer: Design custom forms the powerful Elementor builder. 
+- Creative Buttons: Design creative buttons for your forms within seconds.
 
 == Getting Started ==
 1. Install the Bridhy plugin through the WordPress plugin repository or by uploading the plugin ZIP file.
@@ -25,7 +24,7 @@ For support or assistance using the Bridhy plugin, please visit our support foru
 
 == Frequently Asked Questions ==
 1. Can I use Bridhy with any WordPress theme?
-   Yes, Bridhy is fully compatible with any WordPress theme that supports Elementor.
+   Yes, Bridhy is fully compatible with any WordPress theme.
 
 2. Does Bridhy require any coding knowledge?
    No, Bridhy is designed to be user-friendly and does not require any coding knowledge. However, the custom CSS feature is available for advanced users who want to apply custom styles.

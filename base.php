@@ -321,7 +321,8 @@ final class FBTH_Extension
 
         //Include Widget files
 
-        require_once FBTH_WIDGET_DIR . 'BlogPost/widget.php';
+
+        require_once FBTH_WIDGET_DIR . 'ContactForm7/widget.php';
         require_once FBTH_WIDGET_DIR . 'Advance-Tab/widget.php';
         require_once FBTH_WIDGET_DIR . 'Accordion/widget.php';
         require_once FBTH_WIDGET_DIR . 'BrandSlider/widget.php';

@@ -536,16 +536,16 @@ class FBTH_Animated_Text extends Widget_Base
 		$this->add_inline_editing_attributes('fbth_animated_text_after_text');
 		echo '<div class="fbth-animated-text-align">';
 		do_action('fbth_animated_text_wrapper_before');
-		echo '<' . esc_attr($heading_tag) . ' ' . $this->get_render_attribute_string('fbth_typed_animated_string') . '>';
+		echo '<' . esc_attr($heading_tag) . ' ' .esc_attr( $this->get_render_attribute_string('fbth_typed_animated_string')) . '>';
 		do_action('fbth_animated_text_content_before');
-		$before_text ? printf('<span ' . $this->get_render_attribute_string('fbth_animated_text_before_text') . '>%s</span>', wp_kses_post($before_text)) : '';
+		$before_text ? printf('<span ' . esc_attr($this->get_render_attribute_string('fbth_animated_text_before_text')) . '>%s</span>', wp_kses_post($before_text)) : '';
 		if ('fbth-typed-animation' === $settings['fbth_animated_text_animated_heading_animated_type']) {
 			echo '<span id="fbth-animated-text-' . esc_attr($id) . '" class="fbth-animated-text-animated-heading"></span>';
 		}
 		if ('fbth-morphed-animation' === $settings['fbth_animated_text_animated_heading_animated_type']) {
-			echo '<span ' . $this->get_render_attribute_string('fbth_animated_text_animated_heading') . '>' . wp_kses_post($heading_text) . '</span>';
+			echo '<span ' . esc_attr($this->get_render_attribute_string('fbth_animated_text_animated_heading')) . '>' . wp_kses_post($heading_text) . '</span>';
 		}
-		$after_text ? printf('<span ' . $this->get_render_attribute_string('fbth_animated_text_after_text') . '>%s</span>', wp_kses_post($after_text)) : '';
+		$after_text ? printf('<span ' . esc_attr($this->get_render_attribute_string('fbth_animated_text_after_text')) . '>%s</span>', wp_kses_post($after_text)) : '';
 		do_action('fbth_animated_text_content_after');
 		echo '</' . esc_attr($heading_tag) . '>';
 		do_action('fbth_animated_text_wrapper_after');

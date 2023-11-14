@@ -1884,7 +1884,7 @@ Arrow Position
 
 ?>
 
-        <div <?php echo $this->get_render_attribute_string('brand_version'); ?>>
+        <div <?php echo esc_attr($this->get_render_attribute_string('brand_version')); ?>>
 
             <?php foreach ($settings['list'] as $index => $brand) :
 
