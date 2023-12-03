@@ -2,7 +2,8 @@
 
 namespace FBTH_Contact_Form\Widgets;
 
-if (!defined('ABSPATH')) exit;
+if(!defined('ABSPATH'))
+    exit;
 
 use \Elementor\Controls_Manager;
 use \Elementor\Group_Control_Border;
@@ -16,30 +17,23 @@ use \Elementor\Utils;
 use \Elementor\Widget_Base;
 
 
-class FBTH_Contact_Form extends Widget_Base
-{
-    public function get_name()
-    {
+class FBTH_Contact_Form extends Widget_Base {
+    public function get_name() {
         return 'rrdevs-contact-form';
     }
-    public function get_title()
-    {
+    public function get_title() {
         return esc_html__('Contact Form 7', 'fbth');
     }
-    public function get_icon()
-    {
+    public function get_icon() {
         return 'fbth eicon-email-field';
     }
-    public function get_categories()
-    {
+    public function get_categories() {
         return ['fbth'];
     }
-    public function get_keywords()
-    {
+    public function get_keywords() {
         return ['Contact_Form_7', 'Form', 'Contact'];
     }
-    protected function register_controls()
-    {
+    protected function register_controls() {
 
         $primary_color = get_theme_mod('primary_color');
         $secondary_color = get_theme_mod('secondary_color');
@@ -49,15 +43,15 @@ class FBTH_Contact_Form extends Widget_Base
             '_section_cf7',
             [
                 'label' => fbth_is_cf7_activated() ? __('Contact Form 7', 'fbth') : __('Notice', 'fbth'),
-                'tab'   => Controls_Manager::TAB_CONTENT,
+                'tab' => Controls_Manager::TAB_CONTENT,
             ]
         );
-        if (!fbth_is_cf7_activated()) {
+        if(!fbth_is_cf7_activated()) {
             $this->add_control(
                 'cf7_missing_notice',
                 [
-                    'type'            => Controls_Manager::RAW_HTML,
-                    'raw'             => sprintf(
+                    'type' => Controls_Manager::RAW_HTML,
+                    'raw' => sprintf(
                         __('Hi, it seems %1$s is missing in your site. Please install and activate %1$s first.', 'Exeter'),
                         '<a href="https://wordpress.org/plugins/contact-form-7/" target="_blank" rel="noopener">Contact Form 7</a>'
                     ),
@@ -70,11 +64,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'fbth_form_ts',
             [
-                'label'     => __('Form List Or ShortCode', 'fbth'),
-                'type'      => Controls_Manager::SELECT,
-                'default'   => 'formlist',
-                'options'   => [
-                    'formlist'  => __('Form List', 'fbth'),
+                'label' => __('Form List Or ShortCode', 'fbth'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'formlist',
+                'options' => [
+                    'formlist' => __('Form List', 'fbth'),
                     'shortcode' => __('Form ShortCode', 'fbth'),
                 ],
                 'separator' => 'after',
@@ -83,11 +77,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'form_id',
             [
-                'label'       => __('Select Your Form', 'fbth'),
-                'type'        => Controls_Manager::SELECT,
+                'label' => __('Select Your Form', 'fbth'),
+                'type' => Controls_Manager::SELECT,
                 'label_block' => true,
-                'options'     => ['' => __('', 'fbth')] + \fbth_get_cf7_forms(),
-                'condition'   => [
+                'options' => ['' => __('', 'fbth')] + \fbth_get_cf7_forms(),
+                'condition' => [
                     'fbth_form_ts' => 'formlist',
                 ],
             ]
@@ -95,8 +89,8 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'contactform_shortecode',
             [
-                'label'     => __('Enter your shortcode', 'fbth'),
-                'type'      => Controls_Manager::TEXTAREA,
+                'label' => __('Enter your shortcode', 'fbth'),
+                'type' => Controls_Manager::TEXTAREA,
                 'separator' => 'after',
                 'condition' => [
                     'fbth_form_ts' => 'shortcode',
@@ -109,14 +103,14 @@ class FBTH_Contact_Form extends Widget_Base
             '_section_fields_style',
             [
                 'label' => __('Fields', 'fbth'),
-                'tab'   => Controls_Manager::TAB_STYLE,
+                'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name'     => 'field_typography',
-                'label'    => __('Typography', 'fbth'),
+                'name' => 'field_typography',
+                'label' => __('Typography', 'fbth'),
                 'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)',
             ]
         );
@@ -131,9 +125,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'field_color',
             [
-                'label'     => __('Text Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $primary_color,
+                'label' => __('Text Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $primary_color,
                 'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit)' => 'color: {{VALUE}}',
                 ],
@@ -142,9 +136,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'response_field_color',
             [
-                'label'     => __('Response Output Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $primary_color,
+                'label' => __('Response Output Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $primary_color,
                 'selectors' => [
                     '{{WRAPPER}} .wpcf7-response-output' => 'color: {{VALUE}}',
                 ],
@@ -153,21 +147,21 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'field_placeholder_color',
             [
-                'label'     => __('Placeholder Text Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $primary_color,
+                'label' => __('Placeholder Text Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $primary_color,
                 'selectors' => [
                     '{{WRAPPER}} ::-webkit-input-placeholder' => 'color: {{VALUE}};',
-                    '{{WRAPPER}} ::-moz-placeholder'          => 'color: {{VALUE}};',
-                    '{{WRAPPER}} ::-ms-input-placeholder'     => 'color: {{VALUE}};',
+                    '{{WRAPPER}} ::-moz-placeholder' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} ::-ms-input-placeholder' => 'color: {{VALUE}};',
                 ],
             ]
         );
         $this->add_control(
             'field_bg_color',
             [
-                'label'     => __('Background Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
+                'label' => __('Background Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)' => 'background-color: {{VALUE}}',
                 ],
@@ -176,14 +170,14 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
-                'name'     => 'field_border',
+                'name' => 'field_border',
                 'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)',
             ]
         );
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
-                'name'     => 'field_box_shadow',
+                'name' => 'field_box_shadow',
                 'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)',
             ]
         );
@@ -198,15 +192,15 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
-                'name'     => 'field_focus_border',
+                'name' => 'field_focus_border',
                 'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance):focus',
             ]
         );
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
-                'name'     => 'field_focus_box_shadow',
-                'exclude'  => [
+                'name' => 'field_focus_box_shadow',
+                'exclude' => [
                     'box_shadow_position',
                 ],
                 'selector' => '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance):focus',
@@ -215,8 +209,8 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'field_focus_bg_color',
             [
-                'label'     => __('Background Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
+                'label' => __('Background Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance):focus' => 'background-color: {{VALUE}}',
                 ],
@@ -227,17 +221,17 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'hr_one',
             [
-                'type'  => Controls_Manager::DIVIDER,
+                'type' => Controls_Manager::DIVIDER,
                 'style' => 'thick',
             ]
         );
         $this->add_control(
             'popover-toggle',
             [
-                'label'        => __('Field advanced option', 'fbth'),
-                'type'         => Controls_Manager::POPOVER_TOGGLE,
-                'label_off'    => __('Default', 'fbth'),
-                'label_on'     => __('Custom', 'fbth'),
+                'label' => __('Field advanced option', 'fbth'),
+                'type' => Controls_Manager::POPOVER_TOGGLE,
+                'label_off' => __('Default', 'fbth'),
+                'label_on' => __('Custom', 'fbth'),
                 'return_value' => 'yes',
             ]
         );
@@ -245,16 +239,16 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'wpcf7_field_height',
             [
-                'label'      => __('Fields Height', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Fields Height', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 1,
                         'max' => 200,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance),{{WRAPPER}} .ha-cf7-form input:not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance) ' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -262,16 +256,16 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'wpcf7_textarea_field_height',
             [
-                'label'      => __('Textarea Height', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Textarea Height', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 1,
                         'max' => 500,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} textarea.wpcf7-textarea' => 'min-height: {{SIZE}}{{UNIT}} !important;',
                 ],
             ]
@@ -279,9 +273,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'field_width',
             [
-                'label'          => __('Width', 'fbth'),
-                'type'           => Controls_Manager::SLIDER,
-                'default'        => [
+                'label' => __('Width', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
                     'unit' => '%',
                 ],
                 'tablet_default' => [
@@ -290,9 +284,9 @@ class FBTH_Contact_Form extends Widget_Base
                 'mobile_default' => [
                     'unit' => '%',
                 ],
-                'size_units'     => ['%', 'px'],
-                'range'          => [
-                    '%'  => [
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
                         'min' => 1,
                         'max' => 100,
                     ],
@@ -301,7 +295,7 @@ class FBTH_Contact_Form extends Widget_Base
                         'max' => 500,
                     ],
                 ],
-                'selectors'      => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance),{{WRAPPER}} .ha-cf7-form label' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -309,16 +303,16 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'field_margin',
             [
-                'label'      => __('Spacing Between', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Spacing Between', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -326,10 +320,10 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'spacing_between_top',
             [
-                'label'      => __('Spacing Between', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Spacing Between', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
@@ -339,10 +333,10 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'field_padding',
             [
-                'label'      => __('Padding', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Padding', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
                 ],
             ]
@@ -350,10 +344,10 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'field_border_radius',
             [
-                'label'      => __('Border Radius', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Border Radius', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form-control:not(.wpcf7-submit):not(.wpcf7-radio):not(.wpcf7-checkbox):not(.wpcf7-acceptance)' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                 ],
             ]
@@ -361,10 +355,10 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'textarea_margin',
             [
-                'label'      => __('Textarea Margin', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Textarea Margin', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}}  textarea.wpcf7-textarea' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}!important;',
                 ],
             ]
@@ -372,10 +366,10 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'textarea_border_radius',
             [
-                'label'      => __('Textarea Border Radius', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Textarea Border Radius', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', '%'],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}}  textarea.wpcf7-textarea' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}!important;',
                 ],
             ]
@@ -387,22 +381,22 @@ class FBTH_Contact_Form extends Widget_Base
             'cf7-form-label',
             [
                 'label' => __('Label', 'fbth'),
-                'tab'   => Controls_Manager::TAB_STYLE,
+                'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_responsive_control(
             'label_margin',
             [
-                'label'      => __('Spacing Bottom', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Spacing Bottom', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form label' => 'margin-bottom: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -410,16 +404,16 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'label_width',
             [
-                'label'      => __('Width', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Width', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .wpcf7-form label' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -427,33 +421,33 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'hr3',
             [
-                'type'  => Controls_Manager::DIVIDER,
+                'type' => Controls_Manager::DIVIDER,
                 'style' => 'thick',
             ]
         );
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name'     => 'label_typography',
-                'label'    => __('Typography', 'fbth'),
+                'name' => 'label_typography',
+                'label' => __('Typography', 'fbth'),
                 'selector' => '{{WRAPPER}} .wpcf7-form label',
             ]
         );
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name'        => 'list_item_label_typography',
-                'label'       => __('Radio Button Typography', 'fbth'),
-                'selector'    => '{{WRAPPER}} .wpcf7-list-item-label',
+                'name' => 'list_item_label_typography',
+                'label' => __('Radio Button Typography', 'fbth'),
+                'selector' => '{{WRAPPER}} .wpcf7-list-item-label',
                 'description' => __('Chackbox or radio label typography.', 'fbth'),
             ]
         );
         $this->add_control(
             'label_color',
             [
-                'label'     => __('Text Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $secondary_color,
+                'label' => __('Text Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $secondary_color,
                 'selectors' => [
                     '{{WRAPPER}} .wpcf7-form label' => 'color: {{VALUE}}',
                 ],
@@ -465,14 +459,14 @@ class FBTH_Contact_Form extends Widget_Base
             'section_layout_button',
             [
                 'label' => __('Button', 'fbth'),
-                'tab'   => Controls_Manager::TAB_STYLE,
+                'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
-                'name'     => 'button_text',
-                'label'    => __('Typography', 'fbth'),
+                'name' => 'button_text',
+                'label' => __('Typography', 'fbth'),
                 'selector' => '{{WRAPPER}} .fbth-contact-from [type=submit]',
             ]
         );
@@ -489,9 +483,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'button_color',
             [
-                'label'     => __('Button Background Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $accent_color,
+                'label' => __('Button Background Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $accent_color,
                 'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'background-color: {{VALUE}}',
                 ],
@@ -500,9 +494,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'button_bg_color',
             [
-                'label'     => __('Button Text Color', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => '#fff',
+                'label' => __('Button Text Color', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
                 'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'color: {{VALUE}}',
                 ],
@@ -511,8 +505,8 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
-                'name'     => 'button_box_shadow',
-                'exclude'  => [
+                'name' => 'button_box_shadow',
+                'exclude' => [
                     'box_shadow_position',
                 ],
                 'selector' => '{{WRAPPER}} .fbth-contact-from [type=submit]',
@@ -521,18 +515,18 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
-                'name'     => 'button_border',
-                'label'    => __('Border', 'fbth'),
+                'name' => 'button_border',
+                'label' => __('Border', 'fbth'),
                 'selector' => '{{WRAPPER}} .fbth-contact-from [type=submit]',
             ]
         );
         $this->add_control(
             'popover-toggle-icon',
             [
-                'label'        => __('Icon Styles', 'fbth'),
-                'type'         => Controls_Manager::POPOVER_TOGGLE,
-                'label_off'    => __('Default', 'fbth'),
-                'label_on'     => __('Custom', 'fbth'),
+                'label' => __('Icon Styles', 'fbth'),
+                'type' => Controls_Manager::POPOVER_TOGGLE,
+                'label_off' => __('Default', 'fbth'),
+                'label_on' => __('Custom', 'fbth'),
                 'return_value' => 'yes',
             ]
         );
@@ -542,13 +536,13 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'icon_color',
             [
-                'label'     => __('Icon Color', 'fbth'),
-                'default'   => $accent_color,
-                'type'      => \Elementor\Controls_Manager::COLOR,
+                'label' => __('Icon Color', 'fbth'),
+                'default' => $accent_color,
+                'type' => \Elementor\Controls_Manager::COLOR,
                 'selectors' => [
-                    '{{WRAPPER}} button[type=submit] i, {{WRAPPER}} input[type=submit] i'      => 'color: {{VALUE}}',
-                    '{{WRAPPER}} button [type=submit]:after'      => 'color: {{VALUE}}',
-                    '{{WRAPPER}} button:hover:after'      => 'color: {{VALUE}}',
+                    '{{WRAPPER}} button[type=submit] i, {{WRAPPER}} input[type=submit] i' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} button [type=submit]:after' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} button:hover:after' => 'color: {{VALUE}}',
                     '{{WRAPPER}} button[type=submit] path, {{WRAPPER}} input[type=submit] path' => 'stroke: {{VALUE}}',
                 ],
             ]
@@ -570,35 +564,35 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'icon_right_gap',
             [
-                'label'      => __('Icon Gap', 'fbth-addons'),
-                'type'       => \Elementor\Controls_Manager::SLIDER,
+                'label' => __('Icon Gap', 'fbth-addons'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    '%'  => [
+                    '%' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    'em'  => [
+                    'em' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from [type=submit]:after' => 'right: {{SIZE}}{{UNIT}} !important;', 
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from [type=submit]:after' => 'right: {{SIZE}}{{UNIT}} !important;',
                 ],
-                
+
             ]
         );
         $this->add_responsive_control(
             'icon_size',
             [
-                'label'          => __('Font Size', 'fbth'),
-                'type'           => Controls_Manager::SLIDER,
-                'default'        => [
+                'label' => __('Font Size', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
+                'default' => [
                     'unit' => '%',
                 ],
                 'tablet_default' => [
@@ -607,9 +601,9 @@ class FBTH_Contact_Form extends Widget_Base
                 'mobile_default' => [
                     'unit' => '%',
                 ],
-                'size_units'     => ['%', 'px'],
-                'range'          => [
-                    '%'  => [
+                'size_units' => ['%', 'px'],
+                'range' => [
+                    '%' => [
                         'min' => 1,
                         'max' => 100,
                     ],
@@ -618,7 +612,7 @@ class FBTH_Contact_Form extends Widget_Base
                         'max' => 500,
                     ],
                 ],
-                'selectors'      => [
+                'selectors' => [
                     '{{WRAPPER}} button[type=submit] i,{{WRAPPER}} input[type=submit] i,button[type=submit]:after ' => 'font-size: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -627,25 +621,25 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'icon_fill_color',
             [
-                'label'     => __('Icon Fill Color', 'fbth'),
-                'type'      => \Elementor\Controls_Manager::COLOR,
-                'default'   => $accent_color,
+                'label' => __('Icon Fill Color', 'fbth'),
+                'type' => \Elementor\Controls_Manager::COLOR,
+                'default' => $accent_color,
                 'selectors' => [
                     '{{WRAPPER}} button[type=submit] path, {{WRAPPER}} input[type=submit] path' => 'fill: {{VALUE}}',
                 ],
             ]
         );
-        
+
         $this->end_popover();
 
         //button
         $this->add_control(
             'popover-toggle-button',
             [
-                'label'        => __('Button advanced option', 'fbth'),
-                'type'         => Controls_Manager::POPOVER_TOGGLE,
-                'label_off'    => __('Default', 'fbth'),
-                'label_on'     => __('Custom', 'fbth'),
+                'label' => __('Button advanced option', 'fbth'),
+                'type' => Controls_Manager::POPOVER_TOGGLE,
+                'label_off' => __('Default', 'fbth'),
+                'label_on' => __('Custom', 'fbth'),
                 'return_value' => 'yes',
             ]
         );
@@ -828,29 +822,29 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'hr_there',
             [
-                'type'  => Controls_Manager::DIVIDER,
+                'type' => Controls_Manager::DIVIDER,
                 'style' => 'thick',
             ]
         );
         $this->add_responsive_control(
             'button_width',
             [
-                'label'      => __('Width', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Width', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
-                        'min'  => 0,
-                        'max'  => 150,
+                        'min' => 0,
+                        'max' => 150,
                         'step' => 1,
                     ],
-                    '%'  => [
-                        'min'  => 0,
-                        'max'  => 100,
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'width: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -858,22 +852,22 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'button_height',
             [
-                'label'      => __('Height', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Height', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['%', 'px'],
-                'range'      => [
+                'range' => [
                     'px' => [
-                        'min'  => 0,
-                        'max'  => 150,
+                        'min' => 0,
+                        'max' => 150,
                         'step' => 1,
                     ],
-                    '%'  => [
-                        'min'  => 0,
-                        'max'  => 100,
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
                         'step' => 1,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'height: {{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -881,11 +875,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'btn_margin',
             [
-                'label'      => __('Margin', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Margin', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from [type=submit]'          => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     'body.rtl {{WRAPPER}} .fbth-contact-from [type=submit]' => 'margin: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
                 ],
             ]
@@ -893,11 +887,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'btn_padding',
             [
-                'label'      => __('Padding', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Padding', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from [type=submit]'          => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     'body.rtl {{WRAPPER}} .fbth-contact-from [type=submit]' => 'padding: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
                 ],
             ]
@@ -905,11 +899,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'button_border_radius',
             [
-                'label'      => __('Border Radius', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Border Radius', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from [type=submit]'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from [type=submit]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     'body.rtl {{WRAPPER}} .fbth-contact-from [type=submit]' => 'border-radius: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
                 ],
             ]
@@ -928,9 +922,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'button_hover',
             [
-                'label'     => __('Background Color Hover', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => $secondary_color,
+                'label' => __('Background Color Hover', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => $secondary_color,
                 'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]:hover' => 'background-color: {{VALUE}}',
                 ],
@@ -939,9 +933,9 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_control(
             'button_bg_hover',
             [
-                'label'     => __('Text Color Hover', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
-                'default'   => '#fff',
+                'label' => __('Text Color Hover', 'fbth'),
+                'type' => Controls_Manager::COLOR,
+                'default' => '#fff',
                 'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from [type=submit]:hover' => 'color: {{VALUE}}',
                 ],
@@ -950,8 +944,8 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [
-                'name'     => 'button_box_shadow_hover',
-                'exclude'  => [
+                'name' => 'button_box_shadow_hover',
+                'exclude' => [
                     'box_shadow_position',
                 ],
                 'selector' => '{{WRAPPER}} .fbth-contact-from [type=submit]:hover',
@@ -960,8 +954,8 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
-                'name'     => 'button_border_hover',
-                'label'    => __('Border', 'fbth'),
+                'name' => 'button_border_hover',
+                'label' => __('Border', 'fbth'),
                 'selector' => '{{WRAPPER}} .fbth-contact-from [type=submit]:hover',
             ]
         );
@@ -970,61 +964,61 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'h_icon_right_gap',
             [
-                'label'      => __('Icon Gap Hover', 'fbth-addons'),
-                'type'       => \Elementor\Controls_Manager::SLIDER,
+                'label' => __('Icon Gap Hover', 'fbth-addons'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    '%'  => [
+                    '%' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    'em'  => [
+                    'em' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from [type=submit]:after' => 'right: {{SIZE}}{{UNIT}} !important;', 
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from [type=submit]:after' => 'right: {{SIZE}}{{UNIT}} !important;',
                 ],
-                
+
             ]
         );
 
         $this->add_responsive_control(
             'h_icon_right_text_gap',
             [
-                'label'      => __('Text Gap Hover', 'fbth-addons'),
-                'type'       => \Elementor\Controls_Manager::SLIDER,
+                'label' => __('Text Gap Hover', 'fbth-addons'),
+                'type' => \Elementor\Controls_Manager::SLIDER,
                 'size_units' => ['px', 'em', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    '%'  => [
+                    '%' => [
                         'min' => 0,
                         'max' => 100,
                     ],
-                    'em'  => [
+                    'em' => [
                         'min' => 0,
                         'max' => 100,
                     ],
                 ],
-               
-                'selectors'  => [
+
+                'selectors' => [
                     '{{WRAPPER}} .fbth--contactform-wraper:hover [type=submit]' => 'text-indent: {{SIZE}}{{UNIT}} !important;',
-                    
+
                 ],
             ]
         );
         $this->end_controls_tab();
         $this->end_controls_tabs();
         //button
-        
+
         $this->end_controls_section();
         //button end
         //Form Box
@@ -1032,26 +1026,26 @@ class FBTH_Contact_Form extends Widget_Base
             '_form_box_style',
             [
                 'label' => __('Box', 'fbth'),
-                'tab'   => Controls_Manager::TAB_STYLE,
+                'tab' => Controls_Manager::TAB_STYLE,
             ]
         );
         $this->add_responsive_control(
             'form_box_align',
             [
-                'label'     => __('Align', 'fbth'),
-                'type'      => Controls_Manager::CHOOSE,
-                'options'   => [
-                    'left'   => [
+                'label' => __('Align', 'fbth'),
+                'type' => Controls_Manager::CHOOSE,
+                'options' => [
+                    'left' => [
                         'title' => __('Left', 'fbth'),
-                        'icon'  => 'eicon-text-align-left',
+                        'icon' => 'eicon-text-align-left',
                     ],
                     'center' => [
                         'title' => __('Center', 'fbth'),
-                        'icon'  => 'eicon-text-align-center',
+                        'icon' => 'eicon-text-align-center',
                     ],
-                    'right'  => [
+                    'right' => [
                         'title' => __('Right', 'fbth'),
-                        'icon'  => 'eicon-text-align-right',
+                        'icon' => 'eicon-text-align-right',
                     ],
                 ],
                 'selectors' => [
@@ -1059,14 +1053,14 @@ class FBTH_Contact_Form extends Widget_Base
                     '{{WRAPPER}} .fbth--contactform-wraper input' => 'text-align: {{VALUE}};',
                     '{{WRAPPER}} .fbth--contactform-wraper textarea' => 'text-align: {{VALUE}};',
                 ],
-                'toggle'    => true,
+                'toggle' => true,
             ]
         );
         $this->add_control(
             'form_box_bg',
             [
-                'label'     => __('Background', 'fbth'),
-                'type'      => Controls_Manager::COLOR,
+                'label' => __('Background', 'fbth'),
+                'type' => Controls_Manager::COLOR,
                 'selectors' => [
                     '{{WRAPPER}} .fbth-contact-from' => 'background-color: {{VALUE}}',
                 ],
@@ -1075,23 +1069,23 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_group_control(
             Group_Control_Border::get_type(),
             [
-                'name'     => 'form_border',
+                'name' => 'form_border',
                 'selector' => '{{WRAPPER}} .fbth-contact-from',
             ]
         );
         $this->add_responsive_control(
             'wpcf7_form_width',
             [
-                'label'      => __('Form Width', 'fbth'),
-                'type'       => Controls_Manager::SLIDER,
+                'label' => __('Form Width', 'fbth'),
+                'type' => Controls_Manager::SLIDER,
                 'size_units' => ['px', '%'],
-                'range'      => [
+                'range' => [
                     'px' => [
                         'min' => 1,
                         'max' => 2000,
                     ],
                 ],
-                'selectors'  => [
+                'selectors' => [
                     '{{WRAPPER}} form.wpcf7-form' => 'width:{{SIZE}}{{UNIT}};',
                 ],
             ]
@@ -1099,11 +1093,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'form_box_padding',
             [
-                'label'      => __('Padding', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Padding', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from'          => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     'body.rtl {{WRAPPER}} .fbth-contact-from' => 'padding: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
                 ],
             ]
@@ -1111,11 +1105,11 @@ class FBTH_Contact_Form extends Widget_Base
         $this->add_responsive_control(
             'form_box_border_redius',
             [
-                'label'      => __('Border Radius', 'fbth'),
-                'type'       => Controls_Manager::DIMENSIONS,
+                'label' => __('Border Radius', 'fbth'),
+                'type' => Controls_Manager::DIMENSIONS,
                 'size_units' => ['px', 'em', '%'],
-                'selectors'  => [
-                    '{{WRAPPER}} .fbth-contact-from'          => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                'selectors' => [
+                    '{{WRAPPER}} .fbth-contact-from' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
                     'body.rtl {{WRAPPER}} .fbth-contact-from' => 'border-radius: {{TOP}}{{UNIT}} {{LEFT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{RIGHT}}{{UNIT}};',
                 ],
             ]
@@ -1130,32 +1124,31 @@ class FBTH_Contact_Form extends Widget_Base
         );
         $this->end_controls_section();
     }
-    protected function render()
-    {
-        if (!fbth_is_cf7_activated()) {
+    protected function render() {
+        if(!fbth_is_cf7_activated()) {
             return;
         }
         $settings = $this->get_settings();
         $fbth_form_sl = $settings['fbth_form_ts'];
         $fbth_form_id = $settings['form_id'];
         $fbth_contactform_shortecode = $settings['contactform_shortecode'];
-?>
-        <?php if (!empty($fbth_form_id && $fbth_form_sl == 'formlist')) :
         ?>
+        <?php if(!empty($fbth_form_id && $fbth_form_sl == 'formlist')):
+            ?>
             <div class="fbth--contactform-wraper  fbth-contact-from ">
                 <?php
-                echo fbth_do_shortcode('contact-form-7', [
+                echo esc_html(fbth_do_shortcode('contact-form-7', [
                     'id' => $settings['form_id'],
-                ]);
+                ]));
                 ?>
             </div>
-        <?php
-        elseif ($fbth_form_sl == 'shortcode') :
-        ?>
+            <?php
+        elseif($fbth_form_sl == 'shortcode'):
+            ?>
             <div class="fbth--contactform-wraper <?php echo esc_attr($fbth_form_bp) ?> fbth-contact-from">
-                <?php echo fbth_get_meta($fbth_contactform_shortecode); ?>
+                <?php echo esc_html(fbth_get_meta($fbth_contactform_shortecode)); ?>
             </div>
-<?php
+            <?php
         endif;
     }
 }

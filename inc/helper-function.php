@@ -1,5 +1,5 @@
 <?php
-if (!defined('ABSPATH'))
+if(!defined('ABSPATH'))
     exit;
 /**
  * Get Pages
@@ -15,15 +15,14 @@ if (!defined('ABSPATH'))
  */
 add_filter('woocommerce_add_to_cart_fragments', 'stor_woocommerce_header_add_to_cart_fragment');
 
-function stor_woocommerce_header_add_to_cart_fragment($fragments)
-{
+function stor_woocommerce_header_add_to_cart_fragment($fragments) {
 
     ob_start();
 
     ?>
     <span class="cart-contents">
-        <?php if (!is_null(WC()->cart)) {
-            echo WC()->cart->get_cart_contents_count();
+        <?php if(!is_null(WC()->cart)) {
+            echo esc_html(WC()->cart->get_cart_contents_count());
         } ?>
     </span>
 
@@ -36,9 +35,8 @@ function stor_woocommerce_header_add_to_cart_fragment($fragments)
 
 
 
-if (!function_exists('fbth_get_all_pages')) {
-    function fbth_get_all_pages($posttype = 'page')
-    {
+if(!function_exists('fbth_get_all_pages')) {
+    function fbth_get_all_pages($posttype = 'page') {
         $args = array(
             'post_type' => $posttype,
             'post_status' => 'publish',
@@ -46,8 +44,8 @@ if (!function_exists('fbth_get_all_pages')) {
         );
 
         $page_list = array();
-        if ($data = get_posts($args)) {
-            foreach ($data as $key) {
+        if($data = get_posts($args)) {
+            foreach($data as $key) {
                 $page_list[$key->ID] = $key->post_title;
             }
         }
@@ -62,9 +60,8 @@ if (!function_exists('fbth_get_all_pages')) {
  *
  * @return array
  */
-if (!function_exists('fbth_get_meta')) {
-    function fbth_get_meta($data)
-    {
+if(!function_exists('fbth_get_meta')) {
+    function fbth_get_meta($data) {
         global $wp_embed;
         $content = $wp_embed->autoembed($data);
         $content = $wp_embed->run_shortcode($content);
@@ -79,9 +76,8 @@ if (!function_exists('fbth_get_meta')) {
  *
  * @return array
  */
-if (!function_exists('fbth_get_cf7_forms')) {
-    function fbth_get_cf7_forms()
-    {
+if(!function_exists('fbth_get_cf7_forms')) {
+    function fbth_get_cf7_forms() {
         $forms = get_posts([
             'post_type' => 'wpcf7_contact_form',
             'post_status' => 'publish',
@@ -90,7 +86,7 @@ if (!function_exists('fbth_get_cf7_forms')) {
             'order' => 'ASC',
         ]);
 
-        if (!empty($forms)) {
+        if(!empty($forms)) {
             return wp_list_pluck($forms, 'post_title', 'ID');
         }
         return [];
@@ -101,40 +97,36 @@ if (!function_exists('fbth_get_cf7_forms')) {
  *
  * @return bool
  */
-if (!function_exists('fbth_is_cf7_activated')) {
+if(!function_exists('fbth_is_cf7_activated')) {
 
-    function fbth_is_cf7_activated()
-    {
+    function fbth_is_cf7_activated() {
         return class_exists('WPCF7');
     }
 }
 
-if (!function_exists('fbth_do_shortcode')) {
-    function fbth_do_shortcode($tag, array $atts = array(), $content = null)
-    {
+if(!function_exists('fbth_do_shortcode')) {
+    function fbth_do_shortcode($tag, array $atts = array(), $content = null) {
         global $shortcode_tags;
-        if (!isset($shortcode_tags[$tag])) {
+        if(!isset($shortcode_tags[$tag])) {
             return false;
         }
         return call_user_func($shortcode_tags[$tag], $atts, $content, $tag);
     }
 }
 
-function fbth_layout_content($post_id)
-{
+function fbth_layout_content($post_id) {
 
     return Elementor\Plugin::instance()->frontend->get_builder_content($post_id, true);
 }
 
-function fbth_cpt_slug_and_id($post_type)
-{
+function fbth_cpt_slug_and_id($post_type) {
     $the_query = new WP_Query(
         array(
             'posts_per_page' => -1,
             'post_type' => $post_type,
         ));
     $cpt_posts = [];
-    while ($the_query->have_posts()):
+    while($the_query->have_posts()):
         $the_query->the_post();
         $cpt_posts[get_the_ID()] = get_the_title();
     endwhile;
@@ -146,13 +138,11 @@ function fbth_cpt_slug_and_id($post_type)
  * Strip all the tags except allowed html tags
  */
 
-function scalo_kses_basic($string = '')
-{
+function scalo_kses_basic($string = '') {
     return wp_kses($string, scalo_get_allowed_html_tags('basic'));
 }
 
-function scalo_get_allowed_html_tags($level = 'basic')
-{
+function scalo_get_allowed_html_tags($level = 'basic') {
     $allowed_html = [
         'b' => [],
         'i' => [],
@@ -169,11 +159,11 @@ function scalo_get_allowed_html_tags($level = 'basic')
         'small' => [],
         'strike' => [],
         'abbr' => [
-            'title' => [],
-        ],
+                'title' => [],
+            ],
         'span' => [
-            'class' => [],
-        ],
+                'class' => [],
+            ],
         'strong' => [],
     ];
     return $allowed_html;
@@ -192,23 +182,22 @@ function scalo_get_allowed_html_tags($level = 'basic')
  *
  * @return array
  */
-if (!function_exists('fbth_cpt_taxonomy_slug_and_name')) {
+if(!function_exists('fbth_cpt_taxonomy_slug_and_name')) {
 
-    function fbth_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false)
-    {
+    function fbth_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false) {
         $taxonomyies = get_terms($taxonomy_name);
-        if (true == $option_tag) {
+        if(true == $option_tag) {
             $cpt_terms = '';
-            foreach ($taxonomyies as $category) {
-                if (isset($category->slug) && isset($category->name)) {
-                    $cpt_terms .= '<option value="' . esc_attr($category->slug) . '">' . $category->name . '</option>';
+            foreach($taxonomyies as $category) {
+                if(isset($category->slug) && isset($category->name)) {
+                    $cpt_terms .= '<option value="'.esc_attr($category->slug).'">'.$category->name.'</option>';
                 }
             }
             return $cpt_terms;
         }
         $cpt_terms = [];
-        foreach ($taxonomyies as $category) {
-            if (isset($category->slug) && isset($category->name)) {
+        foreach($taxonomyies as $category) {
+            if(isset($category->slug) && isset($category->name)) {
                 $cpt_terms[$category->slug] = $category->name;
             }
         }
@@ -216,21 +205,19 @@ if (!function_exists('fbth_cpt_taxonomy_slug_and_name')) {
     }
 }
 
-if (!function_exists('fbth_cpt_taxonomy_id_and_name')) {
-    function fbth_cpt_taxonomy_id_and_name($taxonomy_name)
-    {
+if(!function_exists('fbth_cpt_taxonomy_id_and_name')) {
+    function fbth_cpt_taxonomy_id_and_name($taxonomy_name) {
         $taxonomyies = get_terms($taxonomy_name);
         $cpt_terms = [];
-        foreach ($taxonomyies as $category) {
+        foreach($taxonomyies as $category) {
             $cpt_terms[$category->term_id] = $category->name;
         }
         return $cpt_terms;
     }
 }
 
-if (!function_exists('fbth_cpt_author_slug_and_id')) {
-    function fbth_cpt_author_slug_and_id($post_type)
-    {
+if(!function_exists('fbth_cpt_author_slug_and_id')) {
+    function fbth_cpt_author_slug_and_id($post_type) {
         $the_query = new WP_Query(
             array(
                 'posts_per_page' => -1,
@@ -238,7 +225,7 @@ if (!function_exists('fbth_cpt_author_slug_and_id')) {
             )
         );
         $author_meta = [];
-        while ($the_query->have_posts()):
+        while($the_query->have_posts()):
             $the_query->the_post();
             $author_meta[get_the_author_meta('ID')] = get_the_author_meta('display_name');
         endwhile;
@@ -247,9 +234,8 @@ if (!function_exists('fbth_cpt_author_slug_and_id')) {
     }
 }
 
-if (!function_exists('fbth_cpt_slug_and_id')) {
-    function fbth_cpt_slug_and_id($post_type)
-    {
+if(!function_exists('fbth_cpt_slug_and_id')) {
+    function fbth_cpt_slug_and_id($post_type) {
         $the_query = new WP_Query(
             array(
                 'posts_per_page' => -1,
@@ -257,7 +243,7 @@ if (!function_exists('fbth_cpt_slug_and_id')) {
             )
         );
         $cpt_posts = [];
-        while ($the_query->have_posts()):
+        while($the_query->have_posts()):
             $the_query->the_post();
             $cpt_posts[get_the_ID()] = get_the_title();
         endwhile;
@@ -266,10 +252,9 @@ if (!function_exists('fbth_cpt_slug_and_id')) {
     }
 }
 
-if (!function_exists('fbth_get_meta_field_keys')) {
+if(!function_exists('fbth_get_meta_field_keys')) {
 
-    function fbth_get_meta_field_keys($post_type, $field_name, $fild_type = "choices")
-    {
+    function fbth_get_meta_field_keys($post_type, $field_name, $fild_type = "choices") {
         $the_query = new WP_Query(
             array(
                 'posts_per_page' => 1,
@@ -278,7 +263,7 @@ if (!function_exists('fbth_get_meta_field_keys')) {
         );
 
         $field_object = [];
-        while ($the_query->have_posts()):
+        while($the_query->have_posts()):
             $the_query->the_post();
             $field_object = get_field_object($field_name)[$fild_type];
         endwhile;
@@ -290,9 +275,8 @@ if (!function_exists('fbth_get_meta_field_keys')) {
 /**
  * Post orderby list
  */
-if (!function_exists('fbth_get_post_orderby_options')) {
-    function fbth_get_post_orderby_options()
-    {
+if(!function_exists('fbth_get_post_orderby_options')) {
+    function fbth_get_post_orderby_options() {
         $orderby = array(
             'ID' => 'Post ID',
             'author' => 'Post Author',
@@ -316,17 +300,16 @@ if (!function_exists('fbth_get_post_orderby_options')) {
  *
  * @return array
  */
-if (!function_exists('fbth_get_all_posts')) {
-    function fbth_get_all_posts($posttype)
-    {
+if(!function_exists('fbth_get_all_posts')) {
+    function fbth_get_all_posts($posttype) {
         $args = array(
             'post_type' => $posttype,
             'post_status' => 'publish',
             'posts_per_page' => -1
         );
         $post_list = array();
-        if ($data = get_posts($args)) {
-            foreach ($data as $key) {
+        if($data = get_posts($args)) {
+            foreach($data as $key) {
                 $post_list[$key->ID] = $key->post_title;
             }
         }
@@ -341,9 +324,8 @@ if (!function_exists('fbth_get_all_posts')) {
  *
  * @return array
  */
-if (!function_exists('fbth_get_authors')) {
-    function fbth_get_authors()
-    {
+if(!function_exists('fbth_get_authors')) {
+    function fbth_get_authors() {
         $user_query = new \WP_User_Query(
             [
                 'who' => 'authors',
@@ -355,7 +337,7 @@ if (!function_exists('fbth_get_authors')) {
             ]
         );
         $authors = [];
-        foreach ($user_query->get_results() as $result) {
+        foreach($user_query->get_results() as $result) {
             $authors[$result->ID] = $result->display_name;
         }
         return $authors;
@@ -364,38 +346,35 @@ if (!function_exists('fbth_get_authors')) {
 
 /* FBTH Blog Post widget */
 
-function fbth_get_current_user_display_name()
-{
+function fbth_get_current_user_display_name() {
     $user = wp_get_current_user();
     $name = 'user';
-    if ($user->exists() && $user->display_name) {
+    if($user->exists() && $user->display_name) {
         $name = $user->display_name;
     }
     return $name;
 }
 
-function fbth_addons_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false)
-{
+function fbth_addons_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false) {
     $taxonomyies = get_terms($taxonomy_name);
-    if (true == $option_tag) {
+    if(true == $option_tag) {
         $cpt_terms = '';
-        foreach ($taxonomyies as $category) {
-            if (isset($category->slug) && isset($category->name)) {
-                $cpt_terms .= '<option value="' . esc_attr($category->slug) . '">' . $category->name . '</option>';
+        foreach($taxonomyies as $category) {
+            if(isset($category->slug) && isset($category->name)) {
+                $cpt_terms .= '<option value="'.esc_attr($category->slug).'">'.$category->name.'</option>';
             }
         }
         return $cpt_terms;
     }
     $cpt_terms = [];
-    foreach ($taxonomyies as $category) {
-        if (isset($category->slug) && isset($category->name)) {
+    foreach($taxonomyies as $category) {
+        if(isset($category->slug) && isset($category->name)) {
             $cpt_terms[$category->slug] = $category->name;
         }
     }
     return $cpt_terms;
 }
-function fbth_addons_cpt_author_slug_and_id($post_type)
-{
+function fbth_addons_cpt_author_slug_and_id($post_type) {
     $the_query = new WP_Query(
         array(
             'posts_per_page' => -1,
@@ -403,15 +382,14 @@ function fbth_addons_cpt_author_slug_and_id($post_type)
         )
     );
     $author_meta = [];
-    while ($the_query->have_posts()):
+    while($the_query->have_posts()):
         $the_query->the_post();
         $author_meta[get_the_author_meta('ID')] = get_the_author_meta('display_name');
     endwhile;
     wp_reset_postdata();
     return array_unique($author_meta);
 }
-function fbth_addons_cpt_slug_and_id($post_type)
-{
+function fbth_addons_cpt_slug_and_id($post_type) {
     $the_query = new WP_Query(
         array(
             'posts_per_page' => -1,
@@ -419,7 +397,7 @@ function fbth_addons_cpt_slug_and_id($post_type)
         )
     );
     $cpt_posts = [];
-    while ($the_query->have_posts()):
+    while($the_query->have_posts()):
         $the_query->the_post();
         $cpt_posts[get_the_ID()] = get_the_title();
     endwhile;
@@ -428,13 +406,12 @@ function fbth_addons_cpt_slug_and_id($post_type)
 }
 
 
-if (!function_exists('fbth_addons_comment_count')):
+if(!function_exists('fbth_addons_comment_count')):
     /**
      * Comment count
      */
-    function fbth_addons_comment_count($clabel = 'Comment', $icon = '')
-    {
-        if (post_password_required() || !(comments_open() || get_comments_number())) {
+    function fbth_addons_comment_count($clabel = 'Comment', $icon = '') {
+        if(post_password_required() || !(comments_open() || get_comments_number())) {
             return;
         }
         ob_start();
@@ -454,45 +431,41 @@ if (!function_exists('fbth_addons_comment_count')):
         return ob_get_clean();
     }
 endif;
-if (!function_exists('fbth_addons_posted_by')):
+if(!function_exists('fbth_addons_posted_by')):
     /**
      * Prints HTML with meta information for the current author.
      */
-    function fbth_addons_posted_by($label = 'by')
-    {
+    function fbth_addons_posted_by($label = 'by') {
         $byline = sprintf(
             /* translators: %s: post author. */
             esc_html_x('%s', 'post author', 'fbth-addons'),
-            '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
+            '<span class="author vcard"><a class="url fn n" href="'.esc_url(get_author_posts_url(get_the_author_meta('ID'))).'">'.esc_html(get_the_author()).'</a></span>'
         );
-        return '<span class="byline"> ' . $label . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        return '<span class="byline"> '.$label.$byline.'</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
 endif;
-if (!function_exists('fbth_addons_posted_date')):
+if(!function_exists('fbth_addons_posted_date')):
     /**
      * Prints HTML with meta information for the current date.
      */
-    function fbth_addons_posted_date($icon = '')
-    {
+    function fbth_addons_posted_date($icon = '') {
         $date_html = sprintf('<span class="post-date"> %s %s</span>', $icon, get_the_date());
         return $date_html;
     }
 endif;
-if (!function_exists('fbth_addons_posted_category')):
+if(!function_exists('fbth_addons_posted_category')):
     /**
      * Prints HTML with meta information for the current date.
      */
-    function fbth_addons_posted_category($icon = '')
-    {
+    function fbth_addons_posted_category($icon = '') {
         $post_cat = get_the_terms(get_the_ID(), 'category');
         $post_cat = join(', ', wp_list_pluck($post_cat, 'name'));
         $post_category = sprintf('<span class="category-list"> %s %s</span>', $icon, $post_cat);
         return $post_category;
     }
 endif;
-if (!function_exists('fbth_cpt_slug_and_id')):
-    function fbth_cpt_slug_and_id($post_type)
-    {
+if(!function_exists('fbth_cpt_slug_and_id')):
+    function fbth_cpt_slug_and_id($post_type) {
         $the_query = new WP_Query(
             array(
                 'posts_per_page' => -1,
@@ -500,7 +473,7 @@ if (!function_exists('fbth_cpt_slug_and_id')):
             )
         );
         $cpt_posts = [];
-        while ($the_query->have_posts()):
+        while($the_query->have_posts()):
             $the_query->the_post();
             $cpt_posts[get_the_ID()] = get_the_title();
         endwhile;
@@ -508,22 +481,21 @@ if (!function_exists('fbth_cpt_slug_and_id')):
         return $cpt_posts;
     }
 endif;
-if (!function_exists('fbth_cpt_taxonomy_slug_and_name')):
-    function fbth_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false)
-    {
+if(!function_exists('fbth_cpt_taxonomy_slug_and_name')):
+    function fbth_cpt_taxonomy_slug_and_name($taxonomy_name, $option_tag = false) {
         $taxonomyies = get_terms($taxonomy_name);
-        if (true == $option_tag) {
+        if(true == $option_tag) {
             $cpt_terms = '';
-            foreach ($taxonomyies as $category) {
-                if (isset($category->slug) && isset($category->name)) {
-                    $cpt_terms .= '<option value="' . esc_attr($category->slug) . '">' . $category->name . '</option>';
+            foreach($taxonomyies as $category) {
+                if(isset($category->slug) && isset($category->name)) {
+                    $cpt_terms .= '<option value="'.esc_attr($category->slug).'">'.$category->name.'</option>';
                 }
             }
             return $cpt_terms;
         }
         $cpt_terms = [];
-        foreach ($taxonomyies as $category) {
-            if (isset($category->slug) && isset($category->name)) {
+        foreach($taxonomyies as $category) {
+            if(isset($category->slug) && isset($category->name)) {
                 $cpt_terms[$category->slug] = $category->name;
             }
         }
