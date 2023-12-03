@@ -22,7 +22,7 @@ function stor_woocommerce_header_add_to_cart_fragment($fragments) {
     ?>
     <span class="cart-contents">
         <?php if(!is_null(WC()->cart)) {
-            echo esc_html(WC()->cart->get_cart_contents_count());
+            echo esc_html(WC()->cart->get_cart_contents_count()); 
         } ?>
     </span>
 
